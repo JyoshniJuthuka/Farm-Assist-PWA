@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FarmAssist – Farmer Query & Advisory System</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="index.css">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#11a754">
+
+  <!-- Optional icons -->
+  <link rel="icon" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-512.png">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#voice">Voice/Text Query</a></li>
+      <li><a href="#image">Image Query</a></li>
+      <li><a href="#advisory">Advisory</a></li>
+      <li><a href="#chatbot">Animal care</a></li>
+      <li><a href="#e-commerce">Market</a></li>
+      <li><a href="#community">Schemes & Community</a></li>
+    </ul>
+  </nav>
+
+  <!-- Slides / Sections -->
+  <main class="slides">
+    <section id="home" class="slide">
+      <h1>🌱 FarmAssist</h1>
+      <div class="tagline-box">
+        <p>Farmer Query & Advisory System</p>
+      </div>
+      <p>Helping farmers with voice, image, and text queries in Indian languages.</p>
+    </section>
+
+    <section id="voice" class="slide">
+      <h1>🎙 Voice & Text Query</h1>
+      <textarea id="textQuery" placeholder="Type your question here..."></textarea><br>
+      <select id="voiceLang">
+        <option value="en-IN">English (India)</option>
+        <option value="hi-IN">हिन्दी</option>
+        <option value="te-IN">తెలుగు</option>
+        <option value="ta-IN">தமிழ்</option>
+        <option value="kn-IN">ಕನ್ನಡ</option>
+        <option value="mr-IN">मराठी</option>
+        <option value="bn-IN">বাংলা</option>
+      </select>
+      <button id="startVoice">Start Voice</button>
+      <button id="sendQuery">Send Query</button>
+      <p id="voiceStatus">Voice status: idle</p>
+    </section>
+
+    <section id="image" class="slide">
+      <h2>📷 Image Query</h2>
+      <input type="file" id="imageInput" accept="image/*">
+      <div id="imagePreview"></div>
+    </section>
+
+  <section id="advisory" class="slide">
+  <h2>💧 Live Location Irrigation Tips</h2>
+  <button onclick="getLocation()">📍 Get My Location & Tips</button>
+  
+  <div id="locationInfo"></div>
+  <div id="advisoryTips" class="cards"></div>
+</section>
+
+<!-- Link external JS file -->
+<script src="index.js"></script>
+
+
+
+    <section id="animal" class="slide">
+  <h2>🐄 Animal Care & Queries</h2>
+  
+  <textarea id="animalQuery" placeholder="Type your question about animals here..."></textarea><br>
+  
+  <select id="animalType">
+    <option value="livestock">Livestock (Cows, Goats, etc.)</option>
+    <option value="poultry">Poultry (Chickens, Ducks, etc.)</option>
+    <option value="other">Other Animals</option>
+  </select>
+  
+  <button onclick="askAnimalQuery()">Ask</button>
+  
+  <div id="animalResponse">
+    <p>💬 Your answer will appear here...</p>
+  </div>
+</section>
+
+<section id="e-commerce" class="slide">
+  <h2> Easy and Reasonable marketing</h2>
+  <
+
+  <h3>📈 Market Prices</h3>
+  <div id="marketButtons">
+    <button onclick="showMarket('wheat')">🌾 Wheat</button>
+    <button onclick="showMarket('rice')">🍚 Rice</button>
+    <button onclick="showMarket('maize')">🌽 Maize</button>
+  </div>
+
+  <div id="marketInfo"></div>
+</section>
+
+<!-- External JS -->
+<script src="index.js"></script>
+
+
+    <section id="community" class="slide">
+      <h2>📘 Govt. Schemes & Community</h2>
+      <ul>
+        <li>
+          <img src="https://i.pinimg.com/1200x/77/bc/4b/77bc4b6f2c255d037357ddca2b0d9f2d.jpg" alt="PM-Kisan Yojana" width="150" height="150">
+          <a href="https://pmkisan.gov.in/homenew.aspx" target="_blank">PM-Kisan Yojana</a>
+        </li>
+        <li>
+          <img src="https://i.pinimg.com/1200x/66/dd/55/66dd555338498f46425728299fc4b4ba.jpg" alt="Crop Insurance" width="150" height="150">
+          <a href="#">Crop Insurance</a>
+        </li>
+        <li>
+          <img src="https://i.pinimg.com/736x/3d/16/35/3d1635f672b1669e485a4f130687fa70.jpg" alt="Soil Health Card" width="150" height="150">
+          <a href="#">Soil Health Card</a>
+        </li>
+      </ul>
+      <details>
+        <summary>What is PM-Kisan and its benefits?</summary>
+        <p>
+          The **Pradhan Mantri Kisan Samman Nidhi (PM-Kisan)** scheme provides income support of **₹6,000 per year**, paid in **three equal instalments of ₹2,000 each**. Eligible farmers with cultivable land holdings can register via the PM-Kisan Portal or through Common Service Centers.
+        </p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 FarmAssist – Built for Farmers</p>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+</html>

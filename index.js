@@ -1,250 +1,218 @@
-// Voice Recognition
-const startVoice = document.getElementById("startVoice");
+/ ===================
+// Language & i18n
+// ===================
+const translations = {
+  en: {
+    title: "FarmAssist – Farmer Query & Advisory System",
+    nav_home: "Home",
+    nav_query: "Voice/Text/Image",
+    nav_irrigation: "Irrigation Tips",
+    nav_animal: "Animal Care",
+    nav_market: "Market",
+    nav_community: "Schemes & Community",
+    home_title: "FarmAssist",
+    home_tagline: "Smart Farming Tools at Your Fingertips",
+    chatbot_title: "🎙 Voice, Text & Image Query",
+    voice_title: "🎤 Voice Query",
+    btn_start_voice: "Start Voice",
+    voice_status: "Voice status: idle",
+    text_title: "⌨️ Text Query",
+    text_placeholder: "Type your question here...",
+    btn_send: "Send Query",
+    image_title: "📷 Image Query",
+    assistant_output: "Ask a query to get a response here.",
+    irrigation_title: "🌦 Live Location & Irrigation Tips",
+    weather_location: "🌍 Your Location",
+    weather_info: "☀ Weather Info",
+    btn_refresh_weather: "Refresh Weather",
+    irrigation_tips: "💧 Irrigation Tips",
+    tip_loading: "Loading tips...",
+    animal_title: "🐄 Animal Care & Queries",
+    animal_label: "💬 Ask a Question:",
+    animal_placeholder: "Type your question about animals here...",
+    animal_type_label: "🐾 Select Animal Type:",
+    animal_livestock: "Livestock (Cows, Goats, etc.)",
+    animal_poultry: "Poultry (Chickens, Ducks, etc.)",
+    animal_other: "Other Animals",
+    btn_ask: "Ask",
+    animal_response: "💬 Your answer will appear here...",
+    vet_title: "🐾 Nearby Veterinary Help",
+    btn_find_vet: "Find Nearest Vets",
+    vet_loading: "📍 Nearest veterinary hospitals/doctors will appear here...",
+    market_title: "💰 Profits & Business",
+    community_title: "📘 Govt. Schemes & Community",
+    community_search: "Search schemes...",
+    badge_income: "Income",
+    pmkisan_name: "PM-Kisan Yojana",
+    pmkisan_tooltip: "₹6,000/year in 3 installments for eligible farmers",
+    btn_apply: "Apply Now"
+  },
+  hi: {
+    title: "FarmAssist – किसान पूछताछ और सलाह प्रणाली",
+    nav_home: "होम",
+    nav_query: "वॉइस/टेक्स्ट/इमेज",
+    nav_irrigation: "सिंचाई सुझाव",
+    nav_animal: "पशु देखभाल",
+    nav_market: "बाजार",
+    nav_community: "योजनाएँ और समुदाय",
+    home_title: "FarmAssist",
+    home_tagline: "स्मार्ट कृषि उपकरण आपकी उंगलियों पर",
+    chatbot_title: "🎙 वॉइस, टेक्स्ट और इमेज क्वेरी",
+    voice_title: "🎤 वॉइस क्वेरी",
+    btn_start_voice: "वॉइस शुरू करें",
+    voice_status: "वॉइस स्थिति: निष्क्रिय",
+    text_title: "⌨️ टेक्स्ट क्वेरी",
+    text_placeholder: "यहाँ अपना प्रश्न टाइप करें...",
+    btn_send: "प्रश्न भेजें",
+    image_title: "📷 इमेज क्वेरी",
+    assistant_output: "प्रश्न पूछें, उत्तर यहाँ मिलेगा।",
+    irrigation_title: "🌦 लाइव लोकेशन और सिंचाई सुझाव",
+    weather_location: "🌍 आपकी लोकेशन",
+    weather_info: "☀ मौसम जानकारी",
+    btn_refresh_weather: "मौसम ताज़ा करें",
+    irrigation_tips: "💧 सिंचाई सुझाव",
+    tip_loading: "लोड हो रहा है...",
+    animal_title: "🐄 पशु देखभाल और प्रश्न",
+    animal_label: "💬 प्रश्न पूछें:",
+    animal_placeholder: "पशुओं के बारे में प्रश्न यहाँ टाइप करें...",
+    animal_type_label: "🐾 पशु प्रकार चुनें:",
+    animal_livestock: "पशुधन (गाय, बकरी आदि)",
+    animal_poultry: "मुर्गियाँ (चिकन, बतख आदि)",
+    animal_other: "अन्य जानवर",
+    btn_ask: "पूछें",
+    animal_response: "💬 आपका उत्तर यहाँ दिखाई देगा...",
+    vet_title: "🐾 नजदीकी पशु चिकित्सालय",
+    btn_find_vet: "नजदीकी पशु चिकित्सक खोजें",
+    vet_loading: "📍 नजदीकी पशु चिकित्सालय/डॉक्टर यहाँ दिखेंगे...",
+    market_title: "💰 लाभ और व्यापार",
+    community_title: "📘 सरकारी योजनाएँ और समुदाय",
+    community_search: "योजनाएँ खोजें...",
+    badge_income: "आय",
+    pmkisan_name: "पीएम-किसान योजना",
+    pmkisan_tooltip: "पात्र किसानों के लिए सालाना ₹6,000, 3 किस्तों में",
+    btn_apply: "अभी आवेदन करें"
+  }
+  // Repeat for te, ta, kn, ml if needed
+};
+// Simple assistant response handling
+function getSmartResponse(query) {
+  const q = query.toLowerCase();
+
+  if (q.includes("irrigation")) return "💧 You should use drip irrigation for water efficiency.";
+  if (q.includes("goat")) return "🐐 Goats need mineral supplements and regular deworming.";
+  if (q.includes("weather")) return "☀ Today’s weather is sunny with mild humidity.";
+  if (q.includes("soil")) return "🌱 Test your soil and add compost for better fertility.";
+  if (q.includes("pest")) return "🪲 Use neem oil spray or organic pesticides.";
+  return "🤖 Thank you for your question. Our advisory team will respond shortly.";
+}
+
+// Handle text query button
+document.getElementById("sendQuery").addEventListener("click", () => {
+  const query = document.getElementById("textQuery").value.trim();
+  if (!query) {
+    document.getElementById("assistantText").textContent = "❗ Please enter a question.";
+    return;
+  }
+  const response = getSmartResponse(query);
+  document.getElementById("assistantText").textContent = response;
+});
+
+// Optional: voice recognition (simplified)
+const startVoiceBtn = document.getElementById("startVoice");
 const voiceStatus = document.getElementById("voiceStatus");
-const textQuery = document.getElementById("textQuery");
-const sendQuery = document.getElementById("sendQuery");
-const assistantOutput = document.getElementById("assistantOutput");
-const voiceLang = document.getElementById("voiceLang");
+const recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-let recognition;
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-if (SpeechRecognition) {
-  recognition = new SpeechRecognition();
-  recognition.interimResults = false;
-
-  recognition.onstart = () => (voiceStatus.textContent = "Listening...");
-  recognition.onend = () => (voiceStatus.textContent = "Voice status: idle");
-  recognition.onerror = (e) => (voiceStatus.textContent = "Error: " + e.error);
-  recognition.onresult = (event) => {
+if (recognition) {
+  const rec = new recognition();
+  rec.interimResults = false;
+  rec.onstart = () => (voiceStatus.textContent = "🎤 Listening...");
+  rec.onend = () => (voiceStatus.textContent = "Voice status: idle");
+  rec.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
-    textQuery.value = transcript;
+    document.getElementById("textQuery").value = transcript;
+    const response = getSmartResponse(transcript);
+    document.getElementById("assistantText").textContent = response;
   };
 
-  startVoice.addEventListener("click", () => {
-    recognition.lang = voiceLang.value;
-    recognition.start();
+  startVoiceBtn.addEventListener("click", () => {
+    rec.lang = document.getElementById("voiceLang").value;
+    rec.start();
   });
 } else {
   voiceStatus.textContent = "Voice not supported in this browser.";
 }
 
-// Simple Query Response
-sendQuery.addEventListener("click", () => {
-  const q = textQuery.value.toLowerCase();
-  if (q.includes("irrigation") || q.includes("water")) {
-    assistantOutput.textContent = "Check soil moisture before watering. Use drip irrigation.";
-  } else if (q.includes("pest") || q.includes("insect")) {
-    assistantOutput.textContent = "Use neem oil spray or organic pesticides.";
-  } else if (q.includes("soil")) {
-    assistantOutput.textContent = "Test your soil. Add compost for better fertility.";
-  } else {
-    assistantOutput.textContent = "Your query has been recorded. Please upload an image for better help.";
-  }
-});
-
-// Image Preview
-const imageInput = document.getElementById("imageInput");
-const imagePreview = document.getElementById("imagePreview");
-
-imageInput.addEventListener("change", () => {
-  const file = imageInput.files[0];
+// Optional: Image query preview
+document.getElementById("imageInput").addEventListener("change", function () {
+  const file = this.files[0];
   if (!file) return;
   const reader = new FileReader();
   reader.onload = (e) => {
-    imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
-    assistantOutput.textContent = "Image received. We’ll analyze and suggest remedies.";
+    document.getElementById("imagePreview").innerHTML = `<img src="${e.target.result}" alt="Preview" style="max-width:200px;">`;
+    document.getElementById("assistantText").textContent = "🖼 Image received. We will analyze and suggest remedies soon.";
   };
   reader.readAsDataURL(file);
 });
 
 
-// Register service worker
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/service-worker.js")
-      .then(() => console.log("✅ Service Worker Registered"))
-      .catch((err) => console.error("❌ SW Registration Failed", err));
+// ===================
+// Apply translations
+// ===================
+function applyTranslations(lang) {
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (translations[lang] && translations[lang][key]) {
+      el.innerHTML = translations[lang][key];
+    }
   });
-}
-// Get user location
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition, showError);
-  } else {
-    document.getElementById("locationInfo").innerHTML = "❌ Geolocation not supported.";
-  }
-}
 
-// Show coordinates + generate advisory tips
-function showPosition(position) {
-  const lat = position.coords.latitude;
-  const lon = position.coords.longitude;
-
-  document.getElementById("locationInfo").innerHTML =
-    `<p>📍 Your Location:<br>Latitude: ${lat.toFixed(4)}, Longitude: ${lon.toFixed(4)}</p>`;
-
-  // Dummy advisory logic (replace later with real API)
-  let tips = [];
-  if (lat > 20 && lat < 30) {
-    tips = [
-      "Use **drip irrigation** to save water.",
-      "Check soil moisture before watering.",
-      "Neem oil spray helps against insects."
-    ];
-  } else if (lat >= 30) {
-    tips = [
-      "Irrigate crops early morning to reduce evaporation.",
-      "Mulching helps retain soil moisture.",
-      "Avoid over-fertilizing in dry conditions."
-    ];
-  } else {
-    tips = [
-      "Flood irrigation may cause water loss. Switch to drip/sprinkler.",
-      "Test soil before applying fertilizer.",
-      "Use bio-pesticides for safer crop protection."
-    ];
-  }
-  const WEATHER_API_KEY = "YOUR_OPENWEATHERMAP_API_KEY"; // replace with your key
-
-// Weather logic
-function getWeather() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(fetchWeather, showError);
-  } else {
-    document.getElementById("weatherInfo").innerHTML = "❌ Geolocation not supported.";
-  }
-}
-
-function fetchWeather(position) {
-  const lat = position.coords.latitude;
-  const lon = position.coords.longitude;
-
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${WEATHER_API_KEY}`;
-
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      const temp = data.main.temp;
-      const condition = data.weather[0].description;
-      const humidity = data.main.humidity;
-
-      document.getElementById("weatherInfo").innerHTML = `
-        <p>🌡️ Temperature: ${temp}°C</p>
-        <p>☁️ Condition: ${condition}</p>
-        <p>💧 Humidity: ${humidity}%</p>
-      `;
-    })
-    .catch(err => {
-      document.getElementById("weatherInfo").innerHTML = "⚠️ Unable to fetch weather data.";
-      console.error(err);
-    });
-}
-
-function showError(error) {
-  let msg = "";
-  switch (error.code) {
-    case error.PERMISSION_DENIED:
-      msg = "❌ User denied location request.";
-      break;
-    case error.POSITION_UNAVAILABLE:
-      msg = "❌ Location info unavailable.";
-      break;
-    case error.TIMEOUT:
-      msg = "⏳ Location request timed out.";
-      break;
-    default:
-      msg = "⚠️ An unknown error occurred.";
-  }
-  document.getElementById("weatherInfo").innerHTML = msg;
-}
-
-// Market price logic
-function showMarket(crop) {
-  let prices = {
-    wheat: { price: 2000, quantity: "100 quintals" },
-    rice: { price: 2200, quantity: "80 quintals" },
-    maize: { price: 1800, quantity: "120 quintals" }
-  };
-
-  if (prices[crop]) {
-    document.getElementById("marketInfo").innerHTML = `
-      <p><strong>${crop.toUpperCase()}</strong></p>
-      <p>💰 Price: ₹${prices[crop].price}/quintal</p>
-      <p>📦 Available Quantity: ${prices[crop].quantity}</p>
-    `;
-  } else {
-    document.getElementById("marketInfo").innerHTML = "⚠️ No data available.";
-  }
-}
-function askAnimalQuery() {
-  const query = document.getElementById("animalQuery").value;
-  const type = document.getElementById("animalType").value;
-  const responseDiv = document.getElementById("animalResponse");
-
-  if (!query) {
-    responseDiv.innerHTML = "<p>❗ Please enter your query first.</p>";
-    return;
-  }
-
-  // Placeholder response (you can integrate API or AI backend here)
-  responseDiv.innerHTML = `<p>🐾 Query about <strong>${type}</strong> received: "${query}"</p>
-                           <p>✅ Our advisory team will provide guidance soon!</p>`;
-}
-
-
-  // Render tips as cards
-  const tipsContainer = document.getElementById("advisoryTips");
-  tipsContainer.innerHTML = tips.map(t => `<div class="card">${t}</div>`).join("");
-}
-
-// Handle location errors
-function showError(error) {
-  let msg = "";
-  switch (error.code) {
-    case error.PERMISSION_DENIED:
-      msg = "❌ User denied the request for Geolocation.";
-      break;
-    case error.POSITION_UNAVAILABLE:
-      msg = "❌ Location information is unavailable.";
-      break;
-    case error.TIMEOUT:
-      msg = "⏳ The request to get user location timed out.";
-      break;
-    default:
-      msg = "⚠️ An unknown error occurred.";
-  }
-  document.getElementById("locationInfo").innerHTML = msg;
-}
-
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent the mini-infobar from appearing on mobile
-  e.preventDefault();
-  // Save the event so you can trigger it later.
-  deferredPrompt = e;
-  // Show the install button
-  const btn = document.getElementById('installBtn');
-  btn.removeAttribute('hidden');
-
-  btn.addEventListener('click', () => {
-    // Show the prompt
-    deferredPrompt.prompt();
-    // Wait for the user to respond to the prompt
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('User accepted the install prompt');
-      } else {
-        console.log('User dismissed the install prompt');
-      }
-      // Clear the prompt so it can’t be used again
-      deferredPrompt = null;
-      btn.setAttribute('hidden', true);
-    });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (translations[lang] && translations[lang][key]) {
+      el.setAttribute("placeholder", translations[lang][key]);
+    }
   });
-});
 
-window.addEventListener('appinstalled', (evt) => {
-  console.log('PWA was installed');
+  localStorage.setItem("appLang", lang);
+}
+
+// ===================
+// Detect language
+// ===================
+function detectAppLanguage() {
+  const supported = Object.keys(translations);
+  const stored = localStorage.getItem("appLang");
+  if (stored && supported.includes(stored)) return stored;
+  const userLang = (navigator.language || navigator.userLanguage).split("-")[0];
+  return supported.includes(userLang) ? userLang : "en";
+}
+
+// ===================
+// Backend API Call (Step 2)
+// ===================
+async function callBackendAPI(endpoint) {
+  try {
+    const response = await fetch(`http://localhost:3000/${endpoint}`);
+    const data = await response.json();
+    console.log("Response from backend:", data);
+  } catch (error) {
+    console.error("Error calling backend:", error);
+  }
+}
+
+// ===================
+// On DOM load
+// ===================
+document.addEventListener("DOMContentLoaded", () => {
+  const lang = detectAppLanguage();
+  applyTranslations(lang);
+
+  const langSelect = document.getElementById("languageSelect");
+  if (langSelect) {
+    langSelect.value = lang;
+    langSelect.addEventListener("change", e => applyTranslations(e.target.value));
+  }
+
+  // Test backend when page loads
+  callBackendAPI("test");
 });

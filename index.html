@@ -22,27 +22,63 @@
   <nav class="navbar">
     <ul>
       <li><a href="#home">Home</a></li>
-      <li><a href="#voice">Voice/Text Query</a></li>
-      <li><a href="#image">Image Query</a></li>
-      <li><a href="#advisory">Advisory</a></li>
-      <li><a href="#chatbot">Animal care</a></li>
+      <li><a href="#query">Voice/Text/Image</a></li>
+      <li><a href="#irrigation">Irrigation Tips</a></li>
+      <li><a href="#animal">Animal Care</a></li>
       <li><a href="#e-commerce">Market</a></li>
       <li><a href="#community">Schemes & Community</a></li>
     </ul>
   </nav>
 
-  <!-- Slides / Sections -->
+
+  <!-- Main Sections -->
   <main class="slides">
-    <section id="home" class="slide">
-      <h1>🌱 FarmAssist</h1>
-      <div class="tagline-box">
-        <p>Farmer Query & Advisory System</p>
+    
+    <!-- HOME SECTION -->
+    <section id="home">
+      <h1 data-i18n="home_title">FarmAssist</h1>
+      <div class="tagline-box" data-i18n="home_tagline">Smart Farming Tools at Your Fingertips</div>
+
+
+      <div class="home-features">
+        <div class="feature-card" onclick="scrollToSection('query')">
+          <img src="https://img.icons8.com/ios-filled/50/microphone.png" alt="Voice Query">
+          <span>Voice & Text Queries</span>
+        </div>
+        <div class="feature-card" onclick="scrollToSection('animal')">
+          <img src="https://img.icons8.com/ios-filled/50/paw-print.png" alt="Animal Care">
+          <span>Animal Care Advice</span>
+        </div>
+        <div class="feature-card" onclick="scrollToSection('e-commerce')">
+          <img src="https://img.icons8.com/ios-filled/50/shopping-cart.png" alt="Profit & Market">
+          <span>Profit & Market Prices</span>
+        </div>
+        <div class="feature-card" onclick="scrollToSection('irrigation')">
+          <img src="https://img.icons8.com/ios-filled/50/water.png" alt="Irrigation Tips">
+          <span>Irrigation Tips & Weather</span>
+        </div>
+        <div class="feature-card" onclick="scrollToSection('community')">
+          <img src="https://img.icons8.com/ios-filled/50/community.png" alt="Schemes">
+          <span>Govt Schemes & Community</span>
+        </div>
       </div>
-      <p>Helping farmers with voice, image, and text queries in Indian languages.</p>
     </section>
 
-    <section id="voice" class="slide">
-      <h1>🎙 Voice & Text Query</h1>
+    <!-- QUERY SECTION -->
+<section id="query" class="slide">
+  <h1>🎙 Voice, Text & Image Query</h1>
+  <div class="query-container">
+
+    <!-- Voice Query -->
+    <div class="query-box voice-query">
+      <h2>🎤 Voice Query</h2>
+      <button id="startVoice">Start Voice</button>
+      <p id="voiceStatus">Voice status: idle</p>
+    </div>
+
+    <!-- Text Query -->
+    <div class="query-box text-query">
+      <h2>⌨️ Text Query</h2>
       <textarea id="textQuery" placeholder="Type your question here..."></textarea><br>
       <select id="voiceLang">
         <option value="en-IN">English (India)</option>
@@ -53,95 +89,178 @@
         <option value="mr-IN">मराठी</option>
         <option value="bn-IN">বাংলা</option>
       </select>
-      <button id="startVoice">Start Voice</button>
       <button id="sendQuery">Send Query</button>
-      <p id="voiceStatus">Voice status: idle</p>
-    </section>
+    </div>
 
-    <section id="image" class="slide">
+    <!-- Image Query -->
+    <div class="query-box image-query">
       <h2>📷 Image Query</h2>
-      <input type="file" id="imageInput" accept="image/*">
+      <input type="file" id="imageInput" accept="image/*" />
       <div id="imagePreview"></div>
-    </section>
+    </div>
 
-  <section id="advisory" class="slide">
-  <h2>💧 Live Location Irrigation Tips</h2>
-  <button onclick="getLocation()">📍 Get My Location & Tips</button>
-  
-  <div id="locationInfo"></div>
-  <div id="advisoryTips" class="cards"></div>
-</section>
-
-<!-- Link external JS file -->
-<script src="index.js"></script>
-
-
-
-    <section id="animal" class="slide">
-  <h2>🐄 Animal Care & Queries</h2>
-  
-  <textarea id="animalQuery" placeholder="Type your question about animals here..."></textarea><br>
-  
-  <select id="animalType">
-    <option value="livestock">Livestock (Cows, Goats, etc.)</option>
-    <option value="poultry">Poultry (Chickens, Ducks, etc.)</option>
-    <option value="other">Other Animals</option>
-  </select>
-  
-  <button onclick="askAnimalQuery()">Ask</button>
-  
-  <div id="animalResponse">
-    <p>💬 Your answer will appear here...</p>
+    <!-- Assistant Output -->
+    <div id="assistantOutput" class="assistant-box">
+      <h2>💬 Assistant Response</h2>
+      <p id="assistantText">Your answer will appear here...</p>
+    </div>
   </div>
 </section>
 
-<section id="e-commerce" class="slide">
-  <h2> Easy and Reasonable marketing</h2>
-  <
 
-  <h3>📈 Market Prices</h3>
-  <div id="marketButtons">
-    <button onclick="showMarket('wheat')">🌾 Wheat</button>
-    <button onclick="showMarket('rice')">🍚 Rice</button>
-    <button onclick="showMarket('maize')">🌽 Maize</button>
-  </div>
+  
 
-  <div id="marketInfo"></div>
-</section>
-
-<!-- External JS -->
-<script src="index.js"></script>
-
-
-    <section id="community" class="slide">
-      <h2>📘 Govt. Schemes & Community</h2>
-      <ul>
-        <li>
-          <img src="https://i.pinimg.com/1200x/77/bc/4b/77bc4b6f2c255d037357ddca2b0d9f2d.jpg" alt="PM-Kisan Yojana" width="150" height="150">
-          <a href="https://pmkisan.gov.in/homenew.aspx" target="_blank">PM-Kisan Yojana</a>
-        </li>
-        <li>
-          <img src="https://i.pinimg.com/1200x/66/dd/55/66dd555338498f46425728299fc4b4ba.jpg" alt="Crop Insurance" width="150" height="150">
-          <a href="#">Crop Insurance</a>
-        </li>
-        <li>
-          <img src="https://i.pinimg.com/736x/3d/16/35/3d1635f672b1669e485a4f130687fa70.jpg" alt="Soil Health Card" width="150" height="150">
-          <a href="#">Soil Health Card</a>
-        </li>
+   <!-- IRRIGATION SECTION -->
+<section id="irrigation">
+  <h2>🌦 Live Location & Irrigation Tips</h2>
+  <div class="irrigation-container">
+    <div class="irrigation-card" id="weatherCard">
+      <h3>🌍 Your Location</h3>
+      <p id="location">Detecting location...</p>
+      <h3>☀ Weather Info</h3>
+      <p id="weather">Loading weather...</p>
+      <button id="refreshWeather">Refresh Weather</button>
+    </div>
+    <div class="irrigation-card" id="tipsCard">
+      <h3>💧 Irrigation Tips</h3>
+      <ul id="irrigationTips">
+        <li>Loading tips...</li>
       </ul>
-      <details>
-        <summary>What is PM-Kisan and its benefits?</summary>
-        <p>
-          The **Pradhan Mantri Kisan Samman Nidhi (PM-Kisan)** scheme provides income support of **₹6,000 per year**, paid in **three equal instalments of ₹2,000 each**. Eligible farmers with cultivable land holdings can register via the PM-Kisan Portal or through Common Service Centers.
-        </p>
-      </details>
+    </div>
+  </div>
+</section>
+
+<section id="animal" class="slide">
+  <h1>🐄 Animal Care & Queries</h1>
+  <div class="animal-card">
+    <label for="animalQuery">💬 Ask a Question:</label>
+    <textarea id="animalQuery" placeholder="Type your question about animals here..."></textarea>
+
+    <label for="animalType">🐾 Select Animal Type:</label>
+    <select id="animalType">
+      <option value="livestock">Livestock (Cows, Goats, etc.)</option>
+      <option value="poultry">Poultry (Chickens, Ducks, etc.)</option>
+      <option value="other">Other Animals</option>
+    </select>
+
+    <button id="askBtn" class="primary-btn">Ask</button>
+
+    <div id="animalResponse">
+      <p>💬 Your answer will appear here...</p>
+    </div>
+  </div>
+
+  <div class="vet-card">
+    <h3>🐾 Nearby Veterinary Help</h3>
+    <button id="vetBtn" class="secondary-btn">Find Nearest Vets</button>
+    <ul id="vetList">
+      <li>📍 Nearest veterinary hospitals/doctors will appear here...</li>
+    </ul>
+  </div>
+</section>
+
+
+    <!-- MARKET / E-COMMERCE SECTION -->
+    <section id="e-commerce" class="slide">
+      <h2>💰 Profits & Business</h2>
+      <div class="ecommerce-grid-3">
+        <div class="card">
+          <h3>📊 Profit & Loss Calculator</h3>
+          <label for="costPrice">Cost Price (₹ per unit):</label>
+          <input type="number" id="costPrice" placeholder="Enter cost price">
+          <label for="sellingPrice">Selling Price (₹ per unit):</label>
+          <input type="number" id="sellingPrice" placeholder="Enter selling price">
+          <label for="quantity">Quantity Sold:</label>
+          <input type="number" id="quantity" placeholder="Enter quantity">
+          <button onclick="calculateProfitLoss()">Calculate</button>
+          <div id="profitLossResult"></div>
+        </div>
+
+        <div class="card">
+          <h3>🤝 Seller ↔ Buyer</h3>
+          <button onclick="startNegotiation()">Start Negotiation</button>
+          <div id="negotiationChat" style="display:none; margin-top:10px;">
+            <textarea id="chatBox" rows="4" placeholder="Type your message here..."></textarea>
+            <button onclick="sendMessage()">Send</button>
+            <div id="chatHistory"></div>
+          </div>
+        </div>
+
+        <div class="card products">
+          <h3>🛒 Products to Sell</h3>
+          <form id="productForm">
+            <input type="text" id="productName" placeholder="Product Name" required>
+            <input type="number" id="productPrice" placeholder="Price (₹)" required>
+            <input type="number" id="productQty" placeholder="Quantity" required>
+            <button type="button" onclick="addProduct()">Add Product</button>
+          </form>
+          <div id="productList"></div>
+        </div>
+      </div>
     </section>
+
+    <!-- COMMUNITY / SCHEMES SECTION -->
+    <section id="community" class="slide">
+  <h2>📘 Govt. Schemes & Community</h2>
+
+  <!-- Search / Filter (optional) -->
+  <input type="text" id="schemeSearch" placeholder="Search schemes..." />
+
+  <ul class="scheme-list">
+    <!-- Scheme Card 1 -->
+    <li class="scheme-card">
+      <div class="card-image">
+        <img src="https://i.pinimg.com/1200x/77/bc/4b/77bc4b6f2c255d037357ddca2b0d9f2d.jpg" alt="PM-Kisan Yojana">
+        <span class="badge">Income</span>
+      </div>
+      <a href="https://pmkisan.gov.in/homenew.aspx" target="_blank">PM-Kisan Yojana</a>
+      <div class="tooltip">₹6,000/year in 3 installments for eligible farmers</div>
+      <button class="apply-btn">Apply Now</button>
+      <details>
+        <summary>Learn More</summary>
+        <p>The Pradhan Mantri Kisan Samman Nidhi (PM-Kisan) provides income support of ₹6,000 per year, paid in three equal installments. Registration can be done via the PM-Kisan portal or Common Service Centers.</p>
+      </details>
+    </li>
+
+    <!-- Scheme Card 2 -->
+    <li class="scheme-card">
+      <div class="card-image">
+        <img src="https://i.pinimg.com/1200x/66/dd/55/66dd555338498f46425728299fc4b4ba.jpg" alt="Crop Insurance">
+        <span class="badge">Insurance</span>
+      </div>
+      <a href="#">Crop Insurance</a>
+      <div class="tooltip">Protects farmers from crop loss due to natural calamities</div>
+      <button class="apply-btn">Check Eligibility</button>
+      <details>
+        <summary>Learn More</summary>
+        <p>Crop Insurance provides coverage against crop loss due to floods, droughts, pests, and diseases. Premium subsidies are available for eligible farmers.</p>
+      </details>
+    </li>
+
+    <!-- Scheme Card 3 -->
+    <li class="scheme-card">
+      <div class="card-image">
+        <img src="https://i.pinimg.com/736x/3d/16/35/3d1635f672b1669e485a4f130687fa70.jpg" alt="Soil Health Card">
+        <span class="badge">Soil</span>
+      </div>
+      <a href="#">Soil Health Card</a>
+      <div class="tooltip">Helps farmers understand nutrient status of their soil</div>
+      <button class="apply-btn">Get Card</button>
+      <details>
+        <summary>Learn More</summary>
+        <p>Soil Health Card scheme provides farmers with detailed information on the nutrient status of their soil and recommendations for improving fertility.</p>
+      </details>
+    </li>
+  </ul>
+</section>
+
   </main>
 
   <footer>
     <p>© 2025 FarmAssist – Built for Farmers</p>
   </footer>
 
+  <!-- JS -->
   <script src="index.js"></script>
 </body>
 </html>
